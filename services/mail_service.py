@@ -33,5 +33,5 @@ def send_welcome_email(email: str, name: str):
         logger.info(f"Correo enviado a {email}")
         return
     except Exception as e:
-        logger.error(f"⛔ Error enviando correo a {email}: {e}")
+        logger.error(f"Error enviando correo a {email}: {e}")
         raise HTTPException(status_code=502, detail="No se pudo enviar el correo de bienvenida.")

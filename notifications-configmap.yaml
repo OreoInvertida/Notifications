@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notifications-config
+data:
+  SMTP: smtp.gmail.com
+  PORT: "587"
