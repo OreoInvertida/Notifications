@@ -27,7 +27,7 @@ class DocumentTransferRequest(BaseModel):
 
 
 @router.post("/send")
-def send_email(data: EmailRequest, payload: dict = Depends(verify_token)):
+def send_email(data: EmailRequest):
 
     try:
         send_welcome_email(data.email, data.name)
