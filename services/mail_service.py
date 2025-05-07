@@ -5,7 +5,7 @@ from fastapi import HTTPException
 import os
 
 from dotenv import load_dotenv
-load_dotenv()
+#load_dotenv()
 
 
 SENDER = os.getenv("SENDER_EMAIL")
