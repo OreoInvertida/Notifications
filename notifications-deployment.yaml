@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: notifications
-          image: notifications:latest
+          image: us-south1-docker.pkg.dev/micro-chiller-458819-r4/oreo-repository/notifications:latest
           ports:
             - containerPort: 8000
           envFrom:
@@ -26,8 +26,8 @@ spec:
                 secretKeyRef:
                   name: notifications-secret
                   key: SENDER
-            - name: PASSWORD
+            - name: SENDER_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: notifications-secret
-                  key: PASSWORD
+                  key: SENDER_PASSWORD

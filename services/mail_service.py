@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 #load_dotenv()
 
 
-SENDER = os.getenv("SENDER_EMAIL")
+SENDER = os.getenv("SENDER")
 PASSWORD = os.getenv("SENDER_PASSWORD")
 SMTP = os.getenv("SMTP")
 PORT = os.getenv("PORT")
@@ -23,6 +23,8 @@ def send_welcome_email(email: str, name: str):
     msg["Subject"] = subject
     msg["From"] = SENDER
     msg["To"] = email
+
+    logger.info(f"{msg},{PASSWORD},{SMTP},{SENDER},{PORT}")
 
     try:
         with smtplib.SMTP(SMTP, PORT) as server:
