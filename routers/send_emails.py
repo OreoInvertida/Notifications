@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, EmailStr
 from services.mail_service import send_welcome_email, send_transfer_email, req_int_documents_email, req_ext_documents_email
-from services.transfer_mail_service import trans_start_email
+from services.transfer_mail_service import trans_start_email, transfer_failed_email, transfer_success_email
 from fastapi import HTTPException
 import smtplib
 from email.mime.text import MIMEText
@@ -75,6 +75,29 @@ def send_trans_start_email(data: UserOutTranStart):
     try:
         trans_start_email(data=data)
             
-        return {"message": f"Correo trans_start enviado a {data.solicited_email}"}
+        return {"message": f"Correo trans_start enviado a {data.email}"}
+    except Exception as e:
+        raise e
+    
+
+@router.post("/transfer_succes")
+def send_trans_succ_email(data: EmailRequest):
+
+    try:
+        transfer_success_email(data=data)
+            
+        return {"message": f"Correo trans_start enviado a {data.email}"}
+    except Exception as e:
+        raise e
+
+
+
+@router.post("/transfer_failed")
+def send_trans_fail_email(data: EmailRequest):
+
+    try:
+        transfer_failed_email(data=data)
+            
+        return {"message": f"Correo trans_start enviado a {data.email}"}
     except Exception as e:
         raise e

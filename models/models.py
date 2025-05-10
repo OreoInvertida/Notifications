@@ -22,3 +22,9 @@ class CreateReqEmail(BaseModel):
     solicited_email: str
     solicited_name: str
     documents: list[str]
+
+
+class UserOutTranStart(BaseModel):
+    name: str
+    email: str
+    operator_name: str
