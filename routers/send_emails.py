@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, EmailStr
 from services.mail_service import send_welcome_email, send_transfer_email, req_int_documents_email, req_ext_documents_email
+from services.transfer_mail_service import trans_start_email
 from fastapi import HTTPException
 import smtplib
 from email.mime.text import MIMEText
@@ -8,7 +9,7 @@ import os
 from dotenv import load_dotenv
 #load_dotenv()
 from services.token_service import verify_token
-from models.models import CreateReqEmail, EmailRequest, Transfer, DocumentTransferRequest
+from models.models import CreateReqEmail, EmailRequest, Transfer, DocumentTransferRequest, UserOutTranStart
 
 router = APIRouter()
 
@@ -47,22 +48,33 @@ def welcome_transfer_user(data: Transfer, payload: dict = Depends(verify_token))
 
 
 @router.post("/send_req_int")
-def send_email(data: CreateReqEmail):
+def send_req_int_email(data: CreateReqEmail):
 
     try:
         req_int_documents_email(data=data)
             
-        return {"message": f"Correo enviado a {data.solicited_email}"}
+        return {"message": f"Correo req_int enviado a {data.solicited_email}"}
     except Exception as e:
         raise e
     
 
 @router.post("/send_req_ext")
-def send_email(data: CreateReqEmail):
+def send_req_ext_email(data: CreateReqEmail):
 
     try:
         req_ext_documents_email(data=data)
             
-        return {"message": f"Correo enviado a {data.solicited_email}"}
+        return {"message": f"Correo req_ext enviado a {data.solicited_email}"}
+    except Exception as e:
+        raise e
+    
+
+@router.post("/send_trans_start")
+def send_trans_start_email(data: UserOutTranStart):
+
+    try:
+        trans_start_email(data=data)
+            
+        return {"message": f"Correo trans_start enviado a {data.solicited_email}"}
     except Exception as e:
         raise e
