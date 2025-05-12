@@ -84,7 +84,7 @@ def send_trans_start_email(data: UserOutTranStart):
 def send_trans_succ_email(data: EmailRequest):
 
     try:
-        transfer_success_email(data=data)
+        transfer_success_email(email=data.email, name=data.name)
             
         return {"message": f"Correo trans_start enviado a {data.email}"}
     except Exception as e:
@@ -96,7 +96,7 @@ def send_trans_succ_email(data: EmailRequest):
 def send_trans_fail_email(data: EmailRequest):
 
     try:
-        transfer_failed_email(data=data)
+        transfer_failed_email(email=data.email, name=data.name)
             
         return {"message": f"Correo trans_start enviado a {data.email}"}
     except Exception as e:
